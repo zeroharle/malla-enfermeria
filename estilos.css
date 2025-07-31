@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#malla {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.ramo {
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.ramo:hover {
+  transform: scale(1.05);
+}
+
+.aprobado {
+  opacity: 1 !important;
+  border: 3px solid #000;
+}
+
+.psicosocial { background-color: #0074D9; } /* azul */
+.basicas { background-color: #2ECC40; }     /* verde */
+.general { background-color: #B10DC9; }     /* morado */
+.disciplinar { background-color: #FF69B4; } /* rosado */
+.profesional { background-color: #FF6347; } /* rojo claro */
+.hito { background-color: #00CED1; }        /* celeste */
