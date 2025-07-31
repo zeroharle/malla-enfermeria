@@ -1,117 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malla Curricular Interactiva - Enfermería</title>
-  <link rel="stylesheet" href="estilos.css" />
+  <meta charset="UTF-8">
+  <title>Malla Interactiva Enfermería</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      margin-top: 30px;
+    }
+    .semestre {
+      margin-bottom: 30px;
+    }
+    .ramo {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid #aaa;
+      color: white;
+    }
+    .aprobado {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+    .disciplinar { background-color: #f8bbd0; }
+    .psicosocial { background-color: #64b5f6; }
+    .formacion-general { background-color: #ce93d8; }
+    .ciencias-basicas { background-color: #81c784; }
+    .profesional { background-color: #ef9a9a; }
+    .hito { background-color: #81d4fa; }
+  </style>
 </head>
 <body>
-  <h1>Malla Curricular Interactiva - Enfermería</h1>
-  <div id="malla">
 
-    <!-- Nivel 100 -->
-    <div class="nivel" data-nivel="100">
-      <h2>Nivel 100</h2>
-      <button class="ramo disciplinar">Introducción a la Ciencia de la Enfermería</button>
-      <button class="ramo ciencias">Química</button>
-      <button class="ramo ciencias">Morfo Función</button>
-      <button class="ramo ciencias">Biología</button>
-      <button class="ramo disciplinar">Seguridad del Cuidado y Primeros Auxilios</button>
-      <button class="ramo fg">CFG</button>
-    </div>
+  <h1>Malla Interactiva - Enfermería</h1>
 
-    <!-- Nivel 200 -->
-    <div class="nivel" data-nivel="200">
-      <h2>Nivel 200</h2>
-      <button class="ramo disciplinar">Proceso de Enfermería</button>
-      <button class="ramo ciencias">Bioestadística</button>
-      <button class="ramo ciencias">Integrado de fisiología y fisiopatología I</button>
-      <button class="ramo ciencias">Bioquímica</button>
-      <button class="ramo disciplinar">Educación para la Salud - Salud Familiar</button>
-      <button class="ramo fg">CFG</button>
-    </div>
+  <div id="contenedor-malla"></div>
 
-    <!-- Nivel 300 -->
-    <div class="nivel" data-nivel="300">
-      <h2>Nivel 300</h2>
-      <button class="ramo psicosocial">Psicología General y del Desarrollo</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en el Curso de la Vida I</button>
-      <button class="ramo ciencias">Integrado de fisiología y fisiopatología II</button>
-      <button class="ramo ciencias">Microbiología</button>
-      <button class="ramo ciencias">Farmacología para Enfermería</button>
-      <button class="ramo fg">CFG</button>
-    </div>
+  <script>
+    const malla = {
+      'Nivel 100': [
+        { nombre: 'Introducción a la Ciencia de la Enfermería', eje: 'disciplinar' },
+        { nombre: 'Química', eje: 'ciencias-basicas' },
+        { nombre: 'Morfo Función', eje: 'ciencias-basicas' },
+        { nombre: 'Biología', eje: 'ciencias-basicas' },
+        { nombre: 'Seguridad del Cuidado y Primeros Auxilios', eje: 'disciplinar' },
+        { nombre: 'CFG', eje: 'formacion-general' }
+      ],
+      'Nivel 200': [
+        { nombre: 'Proceso de Enfermería', eje: 'disciplinar' },
+        { nombre: 'Bioestadística', eje: 'ciencias-basicas' },
+        { nombre: 'Integrado de fisiología y fisiopatología I', eje: 'ciencias-basicas' },
+        { nombre: 'Bioquímica', eje: 'ciencias-basicas' },
+        { nombre: 'Educación para la Salud - Salud Familiar', eje: 'disciplinar' },
+        { nombre: 'CFG', eje: 'formacion-general' }
+      ],
+      'Nivel 300': [
+        { nombre: 'Psicología General y del Desarrollo', eje: 'psicosocial' },
+        { nombre: 'Gestión del Cuidado en el Curso de la Vida I', eje: 'disciplinar' },
+        { nombre: 'Integrado de fisiología y fisiopatología II', eje: 'ciencias-basicas' },
+        { nombre: 'Microbiología', eje: 'ciencias-basicas' },
+        { nombre: 'Farmacología para Enfermería', eje: 'ciencias-basicas' },
+        { nombre: 'CFG', eje: 'formacion-general' }
+      ],
+      'Nivel 400': [
+        { nombre: 'Salud Pública y Epidemiología', eje: 'psicosocial' },
+        { nombre: 'Gestión del Cuidado en el Curso de la Vida II', eje: 'disciplinar' },
+        { nombre: 'Bioética y Derecho Sanitario', eje: 'psicosocial' },
+        { nombre: 'Gestión del Cuidado en el Adulto I', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidados en Salud Mental', eje: 'disciplinar' },
+        { nombre: 'CFG', eje: 'formacion-general' }
+      ],
+      'Nivel 500': [
+        { nombre: 'Gestión Organizacional para Enfermería', eje: 'disciplinar' },
+        { nombre: 'Enfermería en Salud Comunitaria I', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado en Niños/as y Adolescentes I', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado en el Adulto II', eje: 'disciplinar' },
+        { nombre: 'Enfermería Basada en la Evidencia', eje: 'profesional' },
+        { nombre: 'CFG', eje: 'formacion-general' }
+      ],
+      'Nivel 600': [
+        { nombre: 'Mejora Continua del Cuidado', eje: 'disciplinar' },
+        { nombre: 'Enfermería en salud Comunitaria II', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado en Niños/as y Adolescentes II', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado en Enfermería en Personas Mayores I', eje: 'disciplinar' },
+        { nombre: 'Enfoque de Género en Salud e Interculturalidad', eje: 'psicosocial' },
+        { nombre: 'CFG', eje: 'formacion-general' }
+      ],
+      'Nivel 700': [
+        { nombre: 'Diseño Metodológico y Pensamiento Crítico', eje: 'profesional' },
+        { nombre: 'Cuidados de Enfermería en Niños/as con Necesidades Especiales', eje: 'disciplinar' },
+        { nombre: 'Gestión del cuidado de Enfermería en Situaciones de Urgencia I', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado en Enfermería en Personas Mayores II', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado de enfermería en el Domicilio', eje: 'disciplinar' },
+        { nombre: 'Optativo', eje: 'hito' }
+      ],
+      'Nivel 800': [
+        { nombre: 'Seminario de investigación aplicado en salud', eje: 'profesional' },
+        { nombre: 'Gestión del Cuidado de Enfermería en Personas con Cáncer', eje: 'profesional' },
+        { nombre: 'Gestión del Cuidado de Enfermería en Situaciones de Urgencia II', eje: 'disciplinar' },
+        { nombre: 'Gestión del Cuidado de Enfermería en Procesos de fin de Vida', eje: 'profesional' },
+        { nombre: 'Liderazgo y gestión de proyectos', eje: 'disciplinar' },
+        { nombre: 'Optativo', eje: 'hito' }
+      ],
+      'Nivel 900': [
+        { nombre: 'Internado I', eje: 'profesional' }
+      ],
+      'Nivel 1000': [
+        { nombre: 'Internado II', eje: 'profesional' },
+        { nombre: 'Módulo de título', eje: 'profesional' }
+      ]
+    };
 
-    <!-- Nivel 400 -->
-    <div class="nivel" data-nivel="400">
-      <h2>Nivel 400</h2>
-      <button class="ramo psicosocial">Salud Pública y Epidemiología</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en el Curso de la Vida II</button>
-      <button class="ramo psicosocial">Bioética y Derecho Sanitario</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en el Adulto I</button>
-      <button class="ramo disciplinar">Gestión del Cuidados en Salud Mental</button>
-      <button class="ramo fg">CFG</button>
-    </div>
+    const contenedor = document.getElementById('contenedor-malla');
 
-    <!-- Nivel 500 -->
-    <div class="nivel" data-nivel="500">
-      <h2>Nivel 500</h2>
-      <button class="ramo disciplinar">Gestión Organizacional para Enfermería</button>
-      <button class="ramo disciplinar">Enfermería en Salud Comunitaria I</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en Niños/as y Adolescentes I</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en el Adulto II</button>
-      <button class="ramo profesional">Enfermería Basada en la Evidencia</button>
-      <button class="ramo fg">CFG</button>
-    </div>
+    for (const [nivel, ramos] of Object.entries(malla)) {
+      const nivelDiv = document.createElement('div');
+      nivelDiv.className = 'semestre';
+      const h2 = document.createElement('h2');
+      h2.textContent = nivel;
+      nivelDiv.appendChild(h2);
 
-    <!-- Nivel 600 -->
-    <div class="nivel" data-nivel="600">
-      <h2>Nivel 600</h2>
-      <button class="ramo disciplinar">Mejora Continua del Cuidado</button>
-      <button class="ramo disciplinar">Enfermería en salud Comunitaria II</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en Niños/as y Adolescentes II</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en Enfermería en Personas Mayores I</button>
-      <button class="ramo psicosocial">Enfoque de Género en Salud e Interculturalidad</button>
-      <button class="ramo fg">CFG</button>
-    </div>
+      ramos.forEach(ramo => {
+        const div = document.createElement('div');
+        div.className = `ramo ${ramo.eje}`;
+        div.textContent = ramo.nombre;
+        div.addEventListener('click', () => {
+          div.classList.toggle('aprobado');
+        });
+        nivelDiv.appendChild(div);
+      });
 
-    <!-- Nivel 700 -->
-    <div class="nivel" data-nivel="700">
-      <h2>Nivel 700</h2>
-      <button class="ramo profesional">Diseño Metodológico y Pensamiento Crítico</button>
-      <button class="ramo disciplinar">Cuidados de Enfermería en Niños/as con Necesidades Especiales</button>
-      <button class="ramo disciplinar">Gestión del cuidado de Enfermería en Situaciones de Urgencia I</button>
-      <button class="ramo disciplinar">Gestión del Cuidado en Enfermería en Personas Mayores II</button>
-      <button class="ramo disciplinar">Gestión del Cuidado de enfermería en el Domicilio</button>
-      <button class="ramo hito">Optativo (Hito evaluativo)</button>
-    </div>
+      contenedor.appendChild(nivelDiv);
+    }
+  </script>
 
-    <!-- Nivel 800 -->
-    <div class="nivel" data-nivel="800">
-      <h2>Nivel 800</h2>
-      <button class="ramo profesional">Seminario de investigación aplicado en salud</button>
-      <button class="ramo profesional">Gestión del Cuidado de Enfermería en Personas con Cáncer</button>
-      <button class="ramo disciplinar">Gestión del Cuidado de Enfermería en Situaciones de Urgencia II</button>
-      <button class="ramo profesional">Gestión del Cuidado de Enfermería en Procesos de fin de Vida</button>
-      <button class="ramo disciplinar">Liderazgo y gestión de proyectos</button>
-      <button class="ramo hito">Optativo (Hito evaluativo)</button>
-    </div>
-
-    <!-- Nivel 900 -->
-    <div class="nivel" data-nivel="900">
-      <h2>Nivel 900</h2>
-      <button class="ramo profesional">Internado I</button>
-    </div>
-
-    <!-- Nivel 1000 -->
-    <div class="nivel" data-nivel="1000">
-      <h2>Nivel 1000</h2>
-      <button class="ramo profesional">Internado II</button>
-      <button class="ramo profesional">Módulo de título</button>
-    </div>
-
-  </div>
-  <script src="script.js"></script>
 </body>
 </html>
